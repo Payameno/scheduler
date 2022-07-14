@@ -1,5 +1,5 @@
 import React from "react"
-import 'components/Appointment/style.scss'
+import 'components/appointment/style.scss'
 
 export default function Show(props) {
 
