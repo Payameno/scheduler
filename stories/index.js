@@ -13,6 +13,8 @@ import InterviewerList from "components/InterviewerList";
 import Appointment from "components/appointment/index.jsx";
 import Show from "components/appointment/Show"
 import Confirm from "components/appointment/Confirm"
+import Status from "components/appointment/Status";
+import Error from "components/appointment/Error";
 
 storiesOf("Button", module)
   .addParameters({
@@ -150,10 +152,23 @@ storiesOf("Show", module)
   .add("onEdit", () => <Show onEdit={action("onEdit")}/>)
   .add("onDelete", () => <Show onDelete={action("onDelete")}/>);
 
-  storiesOf("Confirm", module)
+storiesOf("Confirm", module)
  .addParameters({
    backgrounds: [{ name: "white", value: "#fff", default: true }]
   })
   .add("message", () => <Confirm message="Delete the appointment?"/>)
   .add("onConfirm", () => <Confirm onConfirm={action("onConfirm")}/>)
   .add("onCancel", () => <Confirm onCancel={action("onCancel")}/>);
+
+storiesOf("Status", module)
+  .addParameters({
+    backgrounds: [{ name: "white", value: "#fff", default: true }]
+   })
+   .add("message", () => <Status message="Deleting"/>);
+
+storiesOf("Error", module)
+  .addParameters({
+    backgrounds: [{ name: "white", value: "#fff", default: true }]
+   })
+   .add("message", () => <Error message="Could not delete appointment."/>)
+   .add("onClose", () => <Error onClose={action("onClose")}/>);
