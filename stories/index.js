@@ -10,7 +10,9 @@ import DayListItem from "components/DayListItem";
 import DayList from "components/DayList";
 import InterviewerListItem from "components/InterviewerListItem";
 import InterviewerList from "components/InterviewerList";
-import Appointment from "components/Appointment/index.jsx";
+import Appointment from "components/appointment/index.jsx";
+import Show from "components/appointment/Show"
+import Confirm from "components/appointment/Confirm"
 
 storiesOf("Button", module)
   .addParameters({
@@ -136,7 +138,22 @@ storiesOf("Button", module)
 
 storiesOf("Appointment", module)
  .addParameters({
-   backgrounds: [{ name: "black", value: "#fff", default: true }]
+   backgrounds: [{ name: "white", value: "#fff", default: true }]
   })
   .add("Appointment", () => <Appointment />)
-  .add("Appointment with Time", () => <Appointment time="12pm" />)
+  .add("Appointment with Time", () => <Appointment time="12pm" />);
+
+storiesOf("Show", module)
+ .addParameters({
+   backgrounds: [{ name: "white", value: "#fff", default: true }]
+  })
+  .add("onEdit", () => <Show onEdit={action("onEdit")}/>)
+  .add("onDelete", () => <Show onDelete={action("onDelete")}/>);
+
+  storiesOf("Confirm", module)
+ .addParameters({
+   backgrounds: [{ name: "white", value: "#fff", default: true }]
+  })
+  .add("message", () => <Confirm message="Delete the appointment?"/>)
+  .add("onConfirm", () => <Confirm onConfirm={action("onConfirm")}/>)
+  .add("onCancel", () => <Confirm onCancel={action("onCancel")}/>);
