@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import Axios from "axios";
+import axios from "axios";
 import DayList from "./DayList.jsx";
-
+import getAppointmentsForDay from "helpers/selectors.js";
 import "components/Application.scss";
 import Appointment from "components/Appointment"
 
@@ -10,27 +10,40 @@ export default function Application(props) {
   const [state, setState] = useState({
     day: "Monday",
     days: [],
-    appointments: {}
-  }, []);
+    appointments: {},
+    interviewers: {}
+    }, []);
 
-  const setDay = day => setState({...state, day})
-  const setDays = (days) => {setState(prev => ({...prev, days}))}
+  const setDay = (day) => { ////edit
+    console.log(day);
+    return setState({ ...state, day })
+  };
 
-  const dailyAppointments = [];
-
-  useEffect(() => {
-    Axios.get('/api/days').then(response => setDays(response.data));
-    Axios.get('/api/appointments').then(response => );
-  },[]);
-
-  const appointmentsArray = dailyAppointments.map((appointment) =>{
+  const appointments = getAppointmentsForDay(state, state.day);
+  console.log(appointments);
+  const schedule = appointments.map((appointment) =>{
+  // const interview = getInterview(state, appointment.interview);
     return (
       <Appointment
       key={appointment.id}
-      {...appointment}
+      id={appointment.id}
+      time={appointment.time}
+      interview={appointment.interview}
       />
     );
   })
+
+  useEffect(() => {
+    Promise.all([
+      axios.get('/api/days'), 
+      axios.get('/api/appointments'),
+      axios.get('/api/interviewers')
+    ])
+    .then(response => {
+      setState({...state, days: response[0].data, 
+        appointments: response[1].data, interviewers: response[2].data});
+    })
+  },[]);
 
   return (
     <main className="layout">
@@ -55,7 +68,7 @@ export default function Application(props) {
 />
       </section>
       <section className="schedule">
-        {appointmentsArray}
+        {schedule}
         <Appointment key="last" time="5pm" />
       </section>
     </main>

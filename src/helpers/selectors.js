@@ -14,3 +14,7 @@ export default function getAppointmentsForDay(state, day) {
   }
   return dayappointments;
 }
+
+// export default function getInterview(state, interview) {
+//   return state.interviewer;
+// }
