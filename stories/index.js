@@ -10,14 +10,14 @@ import DayListItem from "components/DayListItem";
 import DayList from "components/DayList";
 import InterviewerListItem from "components/InterviewerListItem";
 import InterviewerList from "components/InterviewerList";
-import Appointment from "components/appointment/index.jsx";
-import Header from "components/appointment/Header.jsx";
-import Empty from "components/appointment/Empty.jsx";
-import Show from "components/appointment/Show"
-import Confirm from "components/appointment/Confirm"
-import Status from "components/appointment/Status";
-import Error from "components/appointment/Error";
-import Form from "components/appointment/Form";
+import Appointment from "components/Appointment/index.jsx";
+import Header from "components/Appointment/Header.jsx";
+import Empty from "components/Appointment/Empty.jsx";
+import Show from "components/Appointment/Show"
+import Confirm from "components/Appointment/Confirm"
+import Status from "components/Appointment/Status";
+import Error from "components/Appointment/Error";
+import Form from "components/Appointment/Form";
 
 storiesOf("Button", module)
   .addParameters({
