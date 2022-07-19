@@ -2,42 +2,53 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 export default function useApplicationData() {
+  const [state, setState] = useState(
+    {
+      day: "Monday",
+      days: [],
+      appointments: {},
+      interviewers: {},
+    },
+    []
+  );
 
-const [state, setState] = useState(
-  {
-    day: "Monday",
-    days: [],
-    appointments: {},
-    interviewers: {},
-  },
-  []
-);
-
-const setDay = (day) => {
-  return setState({ ...state, day });
-};
-
-function bookInterview(id, interview) {
-  const appointment = {
-    ...state.appointments[id],
-    interview: { ...interview },
+  const setDay = (day) => {
+    return setState({ ...state, day });
   };
-  const appointments = {
-    ...state.appointments,
-    [id]: appointment
+
+  const updateSpots = function (state, appointments) {
+    const foundDay = state.days.find(day => day.name === state.day)
+  
+    let spots = 0;
+    for (let id of foundDay.appointments) {
+      const appointment = appointments[id]
+      if (!appointment.interview) {
+        spots++
+      }
+    }
+    
+    const day = { ...foundDay, spots }
+    const days = [...state.days]
+    const dayIndex = days.findIndex(obj => obj.id === day.id);
+    days[dayIndex] = day;
+  
+    return days;
   };
-  // const day = {
-  //   ...state.days[id],
-  //   spots: state.days[id].spots + 1
-  // }
-  // const days = {
-  //   ...state.days,
-  //   [id]: day
-  // }
-  return axios.put(`/api/appointments/${id}`, { interview }).then( () => {
-      const days = updateSpots(state, appointments, id);
-      setState({ ...state, appointments, days})
-  })
+
+  function bookInterview(id, interview) {
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview },
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment,
+    };
+
+    return axios.put(`/api/appointments/${id}`, { interview }).then(() => {
+      const days = updateSpots(state, appointments);
+      setState({ ...state, appointments, days });
+    });
   }
 
   function cancelInterview(id) {
@@ -49,10 +60,12 @@ function bookInterview(id, interview) {
       ...state.appointments,
       [id]: appointment,
     };
+    const days = updateSpots(state, appointments);
     return axios.delete(`/api/appointments/${id}`).then(() =>
       setState({
         ...state,
         appointments,
+        days
       })
     );
   }
@@ -76,6 +89,6 @@ function bookInterview(id, interview) {
     state,
     setDay,
     bookInterview,
-    cancelInterview
-  }
+    cancelInterview,
+  };
 }
