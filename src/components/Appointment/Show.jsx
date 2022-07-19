@@ -2,8 +2,9 @@ import React from "react"
 import './style.scss'
 
 export default function Show(props) {
-console.log('student', props.student);
-console.log('interviewer', props.interviewer);
+  const deleteAppointment = function () {
+    props.onDelete(props.id);
+  };
   return (
     <main className="appointment__card appointment__card--show">
   <section className="appointment__card-left">
@@ -19,13 +20,13 @@ console.log('interviewer', props.interviewer);
         className="appointment__actions-button"
         src="images/edit.png"
         alt="Edit"
-        onClick={props.onEdit}
+        onClick={() => props.onEdit()}
       />
       <img
         className="appointment__actions-button"
         src="images/trash.png"
         alt="Delete"
-        onClick={props.onDelete}
+        onClick={() => props.onDelete()}
       />
     </section>
   </section>
