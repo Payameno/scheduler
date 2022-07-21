@@ -21,3 +21,14 @@ npm test
 ```sh
 npm run storybook
 ```
+## ScreenShots
+
+!["Home Page"](https://github.com/Payameno/scheduler/blob/master/docs/1-Home-page.png?raw=true)
+!["Screenshot description"]()
+!["Screenshot description"]()
+!["Screenshot description"]()
+!["Screenshot description"]()
+!["Screenshot description"]()
+!["Screenshot description"]()
+!["Screenshot description"]()
+!["Screenshot description"]()
