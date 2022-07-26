@@ -18,11 +18,12 @@ const DELETING = "DELETING";
 const ERROR_SAVE = "ERROR_SAVE";
 const ERROR_DELETE = "ERROR_DELETE";
 
+//shows an interview appointment if exists, otherwise shows an empty slot
 export default function Apppointment(props) {
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
-
+//function to save an appointment which a user has entered and selected
   function save(name, interviewer) {
     const interview = {
       student: name,
@@ -41,14 +42,14 @@ export default function Apppointment(props) {
   function edit() {
     transition(EDIT);
   }
-
+//function to delete and existing appointment
   function deleteAppointment() {
-    transition(DELETING);
-    props.cancelInterview(props.id)
+    transition(DELETING); //before removing, "deleting" is displayed
+    props.cancelInterview(props.id) //removes the interview from database
       .then(() => transition(EMPTY))
-      .catch(() => transition(ERROR_DELETE, true));
+      .catch(() => transition(ERROR_DELETE, true)); //goes back to the show page
   }
-
+//rendering the right side of page with appointnemnts
   return (
     <article className="appointment"  data-testid="appointment">
       <Header time={props.time} />
@@ -87,10 +88,10 @@ export default function Apppointment(props) {
         />
       )}
       {mode === ERROR_SAVE && (
-        <Error message={"Unable Saving"} onClose={back} />
+        <Error message={"Unable Saving"} onClose={back} /> //error display on saving
       )}
       {mode === ERROR_DELETE && (
-        <Error message={"Unable Deleting"} onClose={back} />
+        <Error message={"Unable Deleting"} onClose={() => transition(SHOW)} />
       )}
     </article>
   );

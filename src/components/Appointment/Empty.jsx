@@ -1,5 +1,5 @@
 import React from "react";
-
+//an empty display with the button to add a new one
 export default function Empty(props) {
   return(
     <main className="appointment__add">

@@ -8,7 +8,7 @@ import {
 import "components/Application.scss";
 import Appointment from "components/Appointment";
 import useApplicationData from "hooks/useApplicationData"
-
+//APplication component, states are defined here
 export default function Application(props) {
   const {
     state,
@@ -21,7 +21,7 @@ export default function Application(props) {
   const appointments = getAppointmentsForDay(state, state.day).map(
     (appointment) => {
       const interview = getInterview(state, appointment.interview);
-
+//Appointments receives variables to display
       return (
         <Appointment
           key={appointment.id}
@@ -34,7 +34,7 @@ export default function Application(props) {
       );
     }
   );
-
+//Main Page render
   return (
     <main className="layout">
       <section className="sidebar">

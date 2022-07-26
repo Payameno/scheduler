@@ -1,10 +1,9 @@
 import React from "react";
 import InterviewerListItem from "./InterviewerListItem";
 import "components/InterviewerList.scss"
-import PropTypes from 'prop-types';
 
 export default function InterviwerList(props) {
-
+//variables for each item injected into the component
   const interviewers = props.interviewers.map(interviewer => {
     return (
       <InterviewerListItem
@@ -16,7 +15,7 @@ export default function InterviwerList(props) {
       />
     )
   })
-
+//returns intreview list section 
   return (
     <section className="interviewers">
   <h4 className="interviewers__header text--light">Interviewer</h4>

@@ -1,6 +1,6 @@
 import React from "react";
 import "./style.scss";
-
+//error display, the message for the error is received at line 9
 export default function Error(props) {
   return (
     <main className="appointment__card appointment__card--error">
